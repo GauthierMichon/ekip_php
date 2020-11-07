@@ -5,8 +5,8 @@
 Après avoir récupérer le projet sur git, et avoir lancer votre terminal dans le bon dossier. Vous faites les commandes suivantes : 
 
 `symfony console doctrine:database:create`
-`symfony console doctrine:migrations:migrate`
-`symfony console doctrine:fixtures:load`
+<br/>`symfony console doctrine:migrations:migrate`
+<br/>`symfony console doctrine:fixtures:load`
 
 `composer require symfony/webpack-encore-bundle --dev`
 `yarn install`
