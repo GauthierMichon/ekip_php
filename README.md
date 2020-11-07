@@ -26,7 +26,7 @@ Dans ce cas faites ces 2 commandes :
 Puis refaites `yarn encore dev`
 
 Puis faites ces dernières commandes qui vont créer la bdd et la remplir : 
-`symfony console doctrine:database:create`
+<br/>`symfony console doctrine:database:create`
 <br/>`symfony console doctrine:migrations:migrate`
 <br/>`symfony console doctrine:fixtures:load`
 
