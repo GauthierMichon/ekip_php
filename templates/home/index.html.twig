@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+
+<div class="example-wrapper">
+
+    <h1>Liste des Offres</h1>
+    {% for offre in offres %}
+    <a href="/offre/{{ offre.Id }}" class="link">
+        <div class="container">
+            <div class="card">
+                <div class="item">
+                    <img class="img" src="https://via.placeholder.com/150">
+                    <h2>Titre : {{ offre.Title }}</h2>
+                    <h3>Ville : {{ offre.Ville }}</h3>
+                    <h3>Contrat en {{ offre.ContratType }} à temps {{ offre.ContratDuration }}</h3>
+                    
+                </div>
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+
+</div>
+{% endblock %}

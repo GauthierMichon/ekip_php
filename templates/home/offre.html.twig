@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+
+    <h1>{{ offre.title }}</h1>   
+
+    <img src="https://via.placeholder.com/150" class="center">
+
+    <p>Description : {{ offre.Description }}</p>
+
+    
+    <p>{{ offre.ContratType }} à {{ offre.Ville }}, à temps {{ offre.ContratDuration }}, et payé {{ offre.Salaire }}$ par mois</p>
+
+    <button class="center">Postuler à l'offre</button>
+    <a href="/" class="retour">Retour</a>
+</div>{% endblock %}
