@@ -2,11 +2,11 @@
 
 ## Cloner le projet
 
-Après avoir récupérer le projet sur git, et avoir lancer votre terminal dans le bon dossier. Vous faites les commandes suivantes : 
+Tout d'abord vous devez installez yarn à l'adresse suivante : 
 
-`symfony console doctrine:database:create`
-<br/>`symfony console doctrine:migrations:migrate`
-<br/>`symfony console doctrine:fixtures:load`
+https://classic.yarnpkg.com/en/docs/install/#windows-stable
+
+Après avoir récupérer le projet sur git, et avoir lancer votre terminal dans le bon dossier. Vous faites les commandes suivantes : 
 
 `composer require symfony/webpack-encore-bundle --dev`
 <br/>`yarn install`
@@ -24,6 +24,11 @@ Dans ce cas faites ces 2 commandes :
 <br/>`npm install node-sass@4.14.1`
 
 Puis refaites `yarn encore dev`
+
+Puis faites ces dernières commandes qui vont créer la bdd et la remplir : 
+`symfony console doctrine:database:create`
+<br/>`symfony console doctrine:migrations:migrate`
+<br/>`symfony console doctrine:fixtures:load`
 
 Enfin lancer votre server avec la commande : 
 <br/>`symfony server:start`
