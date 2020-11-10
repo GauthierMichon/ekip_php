@@ -24,12 +24,15 @@ class AppFixtures extends Fixture
             $contrat = new Contrats();
             $contrattype = new ContratType();
 
+
             
             $offre->setTitle($faker->sentence($nbWords = 2, $variableNbWords = true))
                 ->setVille($faker->town)
                 ->setDescription($faker->sentence($nbWords = 15, $variableNbWords = true))
-                ->setSalaire($faker->numberBetween($min = 1000, $max = 9000));
-                
+                ->setAdresse($faker->streetAddress)
+                ->setCodePostal($faker->postcode)
+                ->setDateCreation($faker->dateTimeBetween($startDate = '-2 months', $endDate = '-15 days'))
+                ->setDateMaj($faker->dateTimeBetween($startDate = '-10 days', $endDate = 'now'));
 
             $bool=$faker->boolean;
             $contrat->SetCDI($bool);
@@ -37,18 +40,20 @@ class AppFixtures extends Fixture
             if ($bool) {
                 $contrat->SetCDD(0);
                 $contrat->SetFREE(0);
-                $offre->setContratType('CDI');
+                $offre->setContrat('CDI');
             }
             else {
                 $bool2=$faker->boolean;
                 $contrat->SetCDD($bool2);
                 if ($bool2) {
                     $contrat->SetFREE(0);
-                    $offre->setContratType('CDD');
+                    $offre->setContrat('CDD');
+                    $offre->setFinMission($faker->dateTimeBetween($startDate = 'now', $endDate = '+6 months'));
                 }
                 else {
                     $contrat->SetFREE(1);
-                    $offre->setContratType('FREE');
+                    $offre->setContrat('FREE');
+                    $offre->setFinMission($faker->dateTimeBetween($startDate = 'now', $endDate = '+6 months'));
                 }
             };
 
@@ -57,11 +62,11 @@ class AppFixtures extends Fixture
 
             if ($bool_tmp) {
                 $contrattype->setPartiel(0);
-                $offre->setContratDuration('plein');
+                $offre->setContratType('plein');
             }
             else {
                 $contrattype->setpartiel(1);
-                $offre->setContratDuration('partiel');
+                $offre->setContratType('partiel');
             }
 
 

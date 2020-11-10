@@ -11,7 +11,13 @@
     <p>Description : {{ offre.Description }}</p>
 
     
-    <p>{{ offre.ContratType }} à {{ offre.Ville }}, à temps {{ offre.ContratDuration }}, et payé {{ offre.Salaire }}$ par mois</p>
+    <p>{{ offre.Contrat }} à {{ offre.Ville }}, {{ offre.adresse }}, {{ offre.CodePostal }}, à temps {{ offre.ContratType }}</p>
+
+    <p>Offre crée le {{offre.DateCreation|date('d/m/Y')}} et mis à jour le {{offre.DateMaj|date('d/m/Y')}}</p>
+
+    {% if offre.Contrat != 'CDI' %}
+        <p>Ce Contrat prendra fin le {{offre.FinMission|date('d/m/Y')}}</p>
+    {% endif %}
 
     <button class="center">Postuler à l'offre</button>
     <a href="/" class="retour">Retour</a>

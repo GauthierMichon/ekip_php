@@ -30,12 +30,12 @@ class Offres
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Contrat_type;
+    private $Contrat;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Contrat_duration;
+    private $Contrat_type;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -43,9 +43,30 @@ class Offres
     private $Description;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $Adresse;
+
+    /**
      * @ORM\Column(type="integer")
      */
-    private $Salaire;
+    private $code_postal;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $date_creation;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $date_maj;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $fin_mission;
+
 
     public function getId(): ?int
     {
@@ -76,6 +97,18 @@ class Offres
         return $this;
     }
 
+    public function getContrat(): ?string
+    {
+        return $this->Contrat;
+    }
+
+    public function setContrat(string $Contrat): self
+    {
+        $this->Contrat = $Contrat;
+
+        return $this;
+    }
+
     public function getContratType(): ?string
     {
         return $this->Contrat_type;
@@ -84,18 +117,6 @@ class Offres
     public function setContratType(string $Contrat_type): self
     {
         $this->Contrat_type = $Contrat_type;
-
-        return $this;
-    }
-
-    public function getContratDuration(): ?string
-    {
-        return $this->Contrat_duration;
-    }
-
-    public function setContratDuration(string $Contrat_duration): self
-    {
-        $this->Contrat_duration = $Contrat_duration;
 
         return $this;
     }
@@ -112,14 +133,62 @@ class Offres
         return $this;
     }
 
-    public function getSalaire(): ?int
+    public function getAdresse(): ?string
     {
-        return $this->Salaire;
+        return $this->Adresse;
     }
 
-    public function setSalaire(int $Salaire): self
+    public function setAdresse(string $Adresse): self
     {
-        $this->Salaire = $Salaire;
+        $this->Adresse = $Adresse;
+
+        return $this;
+    }
+
+    public function getCodePostal(): ?int
+    {
+        return $this->code_postal;
+    }
+
+    public function setCodePostal(int $code_postal): self
+    {
+        $this->code_postal = $code_postal;
+
+        return $this;
+    }
+
+    public function getDateCreation(): ?\DateTimeInterface
+    {
+        return $this->date_creation;
+    }
+
+    public function setDateCreation(\DateTimeInterface $date_creation): self
+    {
+        $this->date_creation = $date_creation;
+
+        return $this;
+    }
+
+    public function getDateMaj(): ?\DateTimeInterface
+    {
+        return $this->date_maj;
+    }
+
+    public function setDateMaj(\DateTimeInterface $date_maj): self
+    {
+        $this->date_maj = $date_maj;
+
+        return $this;
+    }
+
+    public function getFinMission(): ?\DateTimeInterface
+    {
+        return $this->fin_mission;
+    }
+
+    public function setFinMission(\DateTimeInterface $fin_mission): self
+    {
+        $this->fin_mission = $fin_mission;
 
         return $this;
     }
