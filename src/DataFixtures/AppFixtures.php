@@ -24,6 +24,13 @@ class AppFixtures extends Fixture
             $contrat = new Contrats();
             $contrattype = new ContratType();
 
+            
+            $array = ['CDD', 'CDI', 'FREE'];
+            $contrat_array = $faker->randomElements($array);
+
+            $array2 = ['plein', 'partiel'];
+            $contrattype_array = $faker->randomElements($array2);
+
 
             
             $offre->setTitle($faker->sentence($nbWords = 2, $variableNbWords = true))
@@ -32,46 +39,38 @@ class AppFixtures extends Fixture
                 ->setAdresse($faker->streetAddress)
                 ->setCodePostal($faker->postcode)
                 ->setDateCreation($faker->dateTimeBetween($startDate = '-2 months', $endDate = '-15 days'))
-                ->setDateMaj($faker->dateTimeBetween($startDate = '-10 days', $endDate = 'now'));
+                ->setDateMaj($faker->dateTimeBetween($startDate = '-10 days', $endDate = 'now'))
+                ->setContrat($contrat_array[0])
+                ->setContratType($contrattype_array[0]);
 
-            $bool=$faker->boolean;
-            $contrat->SetCDI($bool);
 
-            if ($bool) {
-                $contrat->SetCDD(0);
-                $contrat->SetFREE(0);
-                $offre->setContrat('CDI');
+            if ($contrat_array[0] == 'CDI') {
+                $contrat->SetCDI(1)
+                    ->SetCDD(0)
+                    ->SetFREE(0);
             }
-            else {
-                $bool2=$faker->boolean;
-                $contrat->SetCDD($bool2);
-                if ($bool2) {
-                    $contrat->SetFREE(0);
-                    $offre->setContrat('CDD');
-                    $offre->setFinMission($faker->dateTimeBetween($startDate = 'now', $endDate = '+6 months'));
-                }
-                else {
-                    $contrat->SetFREE(1);
-                    $offre->setContrat('FREE');
-                    $offre->setFinMission($faker->dateTimeBetween($startDate = 'now', $endDate = '+6 months'));
-                }
-            };
-
-            $bool_tmp=$faker->boolean;
-            $contrattype->setPlein($bool_tmp);
-
-            if ($bool_tmp) {
-                $contrattype->setPartiel(0);
-                $offre->setContratType('plein');
+            else if ($contrat_array[0] == 'CDD') {
+                $contrat->SetCDI(0)
+                    ->SetCDD(1)
+                    ->SetFREE(0);
+                $offre->setFinMission($faker->dateTimeBetween($startDate = 'now', $endDate = '+6 months'));
             }
-            else {
-                $contrattype->setpartiel(1);
-                $offre->setContratType('partiel');
+            else if ($contrat_array[0] == 'FREE') {
+                $contrat->SetCDI(0)
+                    ->SetCDD(0)
+                    ->SetFREE(1);
+                $offre->setFinMission($faker->dateTimeBetween($startDate = 'now', $endDate = '+6 months'));
             }
 
 
-        
-
+            if ($contrattype_array[0] == 'plein') {
+                $contrattype->setPartiel(0)
+                    ->setPlein(1);
+            }
+            else if ($contrattype_array[0] == 'partiel') {
+                $contrattype->setPartiel(1)
+                    ->setPlein(0);
+            }
             
             $manager->persist($offre);
             $manager->persist($contrat);
