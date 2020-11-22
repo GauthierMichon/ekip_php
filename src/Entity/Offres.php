@@ -58,12 +58,12 @@ class Offres
     private $date_creation;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      */
     private $date_maj;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      */
     private $fin_mission;
 
@@ -186,7 +186,7 @@ class Offres
         return $this->fin_mission;
     }
 
-    public function setFinMission(\DateTimeInterface $fin_mission): self
+    public function setFinMission($fin_mission): self
     {
         $this->fin_mission = $fin_mission;
 
