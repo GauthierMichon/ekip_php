@@ -7,7 +7,6 @@ use App\Entity\ContratType;
 use App\Entity\Offres;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -52,7 +51,7 @@ class HomeController extends AbstractController
     public function create(Request $request, EntityManagerInterface $em)
     {
 
-        $new_offre = new Offres;
+        $new_offre = new Offres();
         $new_contrat = new Contrats();
         $new_contrattype = new ContratType();
 

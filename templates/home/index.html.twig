@@ -7,7 +7,9 @@
 <div class="example-wrapper">
 
     <h1>Liste des Offres</h1>
-    <a href="/create_offre">Créer une offre</a>
+    <div class="jolilien">
+        <a href="/create_offre">Créer une offre</a>
+    </div>
     {% for offre in offres %}
     <a href="/offre/{{ offre.Id }}" class="link">
         <div class="container">
