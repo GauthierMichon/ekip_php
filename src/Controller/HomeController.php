@@ -45,6 +45,153 @@ class HomeController extends AbstractController
         ]);
     }
 
+
+    /**
+     * @Route("/delete/{id}", name="delete_post")
+     */
+    public function delete(int $id, Request $request, EntityManagerInterface $em)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $new_offre = $em->getRepository(Offres::class)->find($id);
+        $new_contrat = $em->getRepository(Contrats::class)->find($id);
+        $new_contrattype = $em->getRepository(ContratType::class)->find($id);
+
+        $em->remove($new_contrattype);
+        $em->remove($new_contrat);
+        $em->remove($new_offre);
+        $em->flush();
+
+        return new RedirectResponse('/');
+
+        return $this->render('home/delete.html.twig', [
+        ]);
+    }
+
+
+    /**
+     * @Route("/modif/{id}", name="modif_post")
+     */
+    public function modif(int $id, Request $request, EntityManagerInterface $em)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $new_offre = $em->getRepository(Offres::class)->find($id);
+        $new_contrat = $em->getRepository(Contrats::class)->find($id);
+        $new_contrattype = $em->getRepository(ContratType::class)->find($id);
+
+
+        $form = $this->createFormBuilder($new_offre)
+        ->add("Title", TextType::class, [
+            'attr' => [
+                "class" => "retour"
+            ]
+        ])
+        ->add("Description", TextareaType::class, [
+            'attr' => [
+                "class" => "retour"
+            ]
+        ])
+        ->add("Ville", TextType::class, [
+            'attr' => [
+                "class" => "retour"
+            ]
+        ])
+        ->add("Contrat", TextType::class, [
+            'attr' => [
+                "class" => "retour"
+            ],
+            'help' => 'CDI, CDD ou FREE'
+        ])
+        ->add("Contrat_type", TextType::class, [
+            'attr' => [
+                "class" => "retour"
+            ],
+            'help' => 'plein ou partiel'
+        ])
+        ->add("adresse", TextType::class, [
+            'attr' => [
+                "class" => "retour"
+            ]
+        ])
+        ->add("code_postal", IntegerType::class, [
+            'attr' => [
+                "class" => "retour"
+            ]
+        ])
+        ->add("fin_mission", DateType::class, [
+            'attr' => [
+                "class" => "retour"
+            ]
+        ])
+        ->add("submit", SubmitType::class)
+        ->getForm();
+
+        $new_offre->setDateMaj(new \DateTime());
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($new_offre->getContrat() === "CDI") {
+                $new_offre->setFinMission(null);
+            }
+            if ($new_offre->getContrat() !== "CDI" && $new_offre->getContrat() !== "CDD" && $new_offre->getContrat() !== "FREE") {
+                echo "<script  type=\"text/javascript\">"
+                . "alert(\" Le contrat renseigné n'est pas valide! (CDI, CDD ou FREE) \");"
+                . "</script>";
+            }
+            else if ($new_offre->getContratType() !== "plein" && $new_offre->getContratType() !== "partiel") {
+                echo "<script  type=\"text/javascript\">"
+                . "alert(\" Le type de contrat renseigné n'est pas valide! (plein ou partiel) \");"
+                . "</script>";
+            }
+            else if ($new_offre->getDateCreation() > $new_offre->getFinMission() && $new_offre->getFinMission() !== null) {
+                echo "<script  type=\"text/javascript\">"
+                . "alert(\" La date de fin de mission ne peut pas être déjà passé \");"
+                . "</script>";
+            }
+            else {
+
+                if ($new_offre->getContrat() === 'CDI') {
+                    $new_contrat->SetCDI(1)
+                        ->SetCDD(0)
+                        ->SetFREE(0);
+                }
+                else if ($new_offre->getContrat() === 'CDD') {
+                    $new_contrat->SetCDI(0)
+                        ->SetCDD(1)
+                        ->SetFREE(0);
+                }
+                else if ($new_offre->getContrat() === 'FREE') {
+                    $new_contrat->SetCDI(0)
+                        ->SetCDD(0)
+                        ->SetFREE(1);
+                }
+
+                if ($new_offre->getContratType() === 'plein') {
+                    $new_contrattype->setPartiel(0)
+                        ->setPlein(1);
+                }
+                else if ($new_offre->getContratType() === 'partiel') {
+                    $new_contrattype->setPartiel(1)
+                        ->setPlein(0);
+                }
+
+                $em->persist($new_contrattype);
+                $em->persist($new_contrat);
+                $em->persist($new_offre);
+                $em->flush();
+
+                return new RedirectResponse('/');
+            }
+        }
+
+        return $this->render('home/modif.html.twig', [
+            "form" => $form->createView()
+        ]);
+    }
+
+
+
+
     /**
      * @Route("/create_offre", name="create_offre")
      */

@@ -20,5 +20,12 @@
     {% endif %}
 
     <button class="center">Postuler à l'offre</button>
+
+    {% if is_granted('ROLE_USER') %}
+        <a href="/modif/{{ offre.Id }}" class="retour">Modifier l'offre</a>
+
+        <a href="/delete/{{ offre.Id }}" class="retour">Supprimer l'offre</a>
+    {% endif %}
+
     <a href="/" class="retour">Retour</a>
 </div>{% endblock %}

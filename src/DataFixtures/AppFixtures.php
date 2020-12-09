@@ -39,7 +39,6 @@ class AppFixtures extends Fixture
                 ->setAdresse($faker->streetAddress)
                 ->setCodePostal($faker->postcode)
                 ->setDateCreation($faker->dateTimeBetween($startDate = '-2 months', $endDate = '-15 days'))
-                ->setDateMaj($faker->dateTimeBetween($startDate = '-10 days', $endDate = 'now'))
                 ->setContrat($contrat_array[0])
                 ->setContratType($contrattype_array[0]);
 

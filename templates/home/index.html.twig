@@ -8,7 +8,9 @@
 
     <h1>Liste des Offres</h1>
     <div class="jolilien">
-        <a href="/create_offre">Créer une offre</a>
+        <a href="/create_offre">Créer une offre</a><br>
+        <a href="/login">Se connecter</a><br>
+        <a href="/register">S'inscrire</a>
     </div>
     {% for offre in offres %}
     <a href="/offre/{{ offre.Id }}" class="link">
