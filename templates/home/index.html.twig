@@ -8,7 +8,9 @@
 
     <h1>Liste des Offres</h1>
     <div class="jolilien">
-        <a href="/create_offre">Créer une offre</a><br>
+        {% if is_granted('ROLE_USER') %}
+            <a href="/create_offre">Créer une offre</a><br>
+        {% endif %}
         <a href="/login">Se connecter</a><br>
         <a href="/register">S'inscrire</a>
     </div>
